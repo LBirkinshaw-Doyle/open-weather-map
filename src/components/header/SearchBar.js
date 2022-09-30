@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import './SearchBar.css';
+import searchIcon from '../media/ui-icons/search.png';
+
 function SearchBar() {
   const [location, updateLocation] = useState('');
   const [storageError, updateStorageError] = useState(false);
@@ -59,13 +62,15 @@ function SearchBar() {
             onChange={handleLocationChange}
           ></input>
         </label>
-        <input type="submit" value="Search"></input>
+        <button id="submit" type="submit">
+          <img src={searchIcon} alt="search" width="40" height="40"></img>
+        </button>
       </form>
     );
   }
   return (
     <div id="search-bar">
-      {storageError && <p>Search Unavailable</p>}
+      {storageError && <p id="search-unavailable">Search Unavailable</p>}
       {!storageError && SearchForm()}
     </div>
   );
