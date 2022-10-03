@@ -24,7 +24,7 @@ form {
   border-radius: 0.6rem;
   padding: 0.2rem;
 }
-:focus {
+#location:focus {
   outline: none;
   box-shadow: 0 0 0 3px hsla(220, 100%, 50%, 80%);
 }
