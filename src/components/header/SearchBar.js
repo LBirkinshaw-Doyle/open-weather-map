@@ -1,55 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './SearchBar.css';
 import searchIcon from '../media/ui-icons/search.png';
 
-function SearchBar() {
+function SearchBar(props) {
   const [location, updateLocation] = useState('');
-  const [storageError, updateStorageError] = useState(false);
+
+  //Update state:location on component load and if the props change
+  useEffect(() => {
+    updateLocation(props.data.searchLocation);
+  }, [props.data.searchLocation]);
+
+  //Handle input to search bar
   const handleLocationChange = (event) => {
     event.preventDefault();
     updateLocation(event.target.value);
   };
-  function storageAvailable() {
-    let storage;
-    try {
-      storage = window['localStorage'];
-      const x = '__storage_test__';
-      storage.setItem(x, x);
-      storage.removeItem(x);
-      return true;
-    } catch (e) {
-      return (
-        e instanceof DOMException &&
-        // everything except Firefox
-        (e.code === 22 ||
-          // Firefox
-          e.code === 1014 ||
-          // test name field too, because code might not be present
-          // everything except Firefox
-          e.name === 'QuotaExceededError' ||
-          // Firefox
-          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-        // acknowledge QuotaExceededError only if there's something already stored
-        storage &&
-        storage.length !== 0
-      );
-    }
-  }
+
+  //Handle form submission and pass data back to App Component
   const handleSubmit = (event) => {
     event.preventDefault();
     if (location.length !== 0) {
-      if (storageAvailable()) {
-        // We can use localStorage
-        let storage = window['localStorage'];
-        storage.setItem('location', location);
-      } else {
-        updateStorageError(true);
-      }
+      props.updateData({ searchLocation: location });
     }
   };
-  function SearchForm() {
-    return (
+
+  return (
+    <div id="search-bar">
       <form onSubmit={handleSubmit}>
         <label id="location-label">
           Search for a location:
@@ -66,12 +43,6 @@ function SearchBar() {
           <img src={searchIcon} alt="search" width="40" height="40"></img>
         </button>
       </form>
-    );
-  }
-  return (
-    <div id="search-bar">
-      {storageError && <p id="search-unavailable">Search Unavailable</p>}
-      {!storageError && SearchForm()}
     </div>
   );
 }

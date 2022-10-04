@@ -6,7 +6,7 @@ function AppName() {
   return (
     <div id="app-name">
       <LogoDisplay />
-      <h1 className="title">OpenWeather</h1>
+      <h1 className="title">OpenWeatherUK</h1>
     </div>
   );
 }

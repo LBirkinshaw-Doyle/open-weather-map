@@ -1,15 +1,21 @@
+import { useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+
+import RecenterMapOnSearch from './RecenterMap';
 
 import './MainBody.css';
 
-function MainBody() {
+function MainBody(props) {
+  const [center] = useState([54.003, -2.544]);
+
   return (
     <div id="main-body">
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true}>
+      <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <RecenterMapOnSearch data={props.data} />
       </MapContainer>
     </div>
   );

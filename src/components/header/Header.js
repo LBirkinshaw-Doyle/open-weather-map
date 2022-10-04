@@ -3,11 +3,11 @@ import SearchBar from './SearchBar';
 
 import './Header.css';
 
-function Header() {
+function Header(props) {
   return (
     <div id="header">
       <AppName />
-      <SearchBar />
+      <SearchBar data={props.data} updateData={props.updateData} />
     </div>
   );
 }
