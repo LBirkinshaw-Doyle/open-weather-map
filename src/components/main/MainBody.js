@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 import RecenterMapOnSearch from './RecenterMap';
+import WeatherSymbol from './WeatherSymbol';
 
 import './MainBody.css';
 
@@ -16,6 +17,7 @@ function MainBody(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <RecenterMapOnSearch data={props.data} />
+        <WeatherSymbol />
       </MapContainer>
     </div>
   );
