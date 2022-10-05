@@ -17,7 +17,7 @@ const RecenterMapOnSearch = (props) => {
   const getCoordinates = async function (location) {
     const APIkey = '4de205c68a9087dbe53c3386a6f2599a';
     const limit = '1';
-    let APIURL = `http://api.openweathermap.org/geo/1.0/direct?q=${location},GB&limit=${limit}&appid=${APIkey}`;
+    let APIURL = `https://api.openweathermap.org/geo/1.0/direct?q=${location},GB&limit=${limit}&appid=${APIkey}`;
     try {
       const response = await fetch(APIURL);
       const responseData = await response.json();
