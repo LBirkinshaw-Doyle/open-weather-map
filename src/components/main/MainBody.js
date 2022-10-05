@@ -17,7 +17,17 @@ function MainBody(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <RecenterMapOnSearch data={props.data} />
-        <WeatherSymbol />
+        <WeatherSymbol position={[0.75, 0.125]} />
+        <WeatherSymbol position={[0.75, 0.375]} />
+        <WeatherSymbol position={[0.75, 0.625]} />
+        <WeatherSymbol position={[0.75, 0.875]} />
+        <WeatherSymbol position={[0.5, 0.25]} />
+        <WeatherSymbol position={[0.5, 0.5]} />
+        <WeatherSymbol position={[0.5, 0.75]} />
+        <WeatherSymbol position={[0.25, 0.125]} />
+        <WeatherSymbol position={[0.25, 0.375]} />
+        <WeatherSymbol position={[0.25, 0.625]} />
+        <WeatherSymbol position={[0.25, 0.875]} />
       </MapContainer>
     </div>
   );

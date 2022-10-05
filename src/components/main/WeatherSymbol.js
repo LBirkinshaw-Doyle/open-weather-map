@@ -13,14 +13,34 @@ function WeatherSymbol(props) {
   //create link to the MapContainer Component
   const map = useMap();
 
-  //On creation, move marker position to the map center & update weather code
-  useEffect(() => {
-    updateLatitudeLongitude(map.getCenter());
-  }, [map]);
+  //small function to get the bounds of the map as number
+  const getBoundsArray = () => {
+    const bounds = map.getBounds();
+    const west = bounds.getWest();
+    const east = bounds.getEast();
+    const north = bounds.getNorth();
+    const south = bounds.getSouth();
+    return [north, east, south, west];
+  };
+
+  const calculateLatitudeLongitude = function (position) {
+    const [latitudePos, longitudePos] = position;
+    const [north, east, south, west] = getBoundsArray();
+
+    const latitudeDelta = north - south;
+    const longitudeDelta = east - west;
+
+    const latitude = south + latitudePos * latitudeDelta;
+    const longitude = west + longitudePos * longitudeDelta;
+
+    let latLong = Leaflet.latLng(latitude, longitude);
+    return latLong;
+  };
 
   //When a move finishes, update the marker position & update weather code
   useMapEvent('moveend', () => {
-    updateLatitudeLongitude(map.getCenter());
+    let location = calculateLatitudeLongitude(props.position);
+    updateLatitudeLongitude(location);
   });
 
   //When state:latitudeLongitude is updated, get the weather code for that position
